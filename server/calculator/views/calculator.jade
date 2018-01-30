@@ -1,0 +1,25 @@
+html
+    head
+        title!=title
+        link(href='/static/main.css', rel='stylesheet', type='text/css')
+        script(src="/static/plotly-latest.min.js")
+    body
+block content
+    .main.container
+        .row
+            .col-md-6.col-md-offset-3
+                h1.display-4.m-b-2!=title
+                // calculator
+                form(method='POST' action='/calculate')!=form
+                    button.btn.btn-primary(type='submit') Send
+                    div.result RESULT:&nbsp;&nbsp;
+                    - if (typeof(data) !== 'undefined' && typeof(data.result) !== 'undefined'){
+                        span.result!=data.result
+                    - }
+                    - if (typeof(data) !== 'undefined' && typeof(data.expression) !== 'undefined' && typeof(data.result) === 'undefined'){
+                        div#result
+                        script(type='text/javascript').
+                            var data = !{JSON.stringify(data.lines).replace(/<\//g, "<\\/")}
+                            Plotly.newPlot('result', data);
+                    - }
+
