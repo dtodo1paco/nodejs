@@ -1,0 +1,12 @@
+html
+    head
+        title!= signup
+    body
+block content
+    .main.container
+        .row
+            .col-md-6.col-md-offset-3
+                h1.display-4.m-b-2 Sign Up
+                // register form
+                form(method='POST' action='/signup')!=form
+                    button.btn.btn-primary(type='submit') Sign up
